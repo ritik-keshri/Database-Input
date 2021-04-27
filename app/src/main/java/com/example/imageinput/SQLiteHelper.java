@@ -15,25 +15,27 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db = getWritableDatabase();
-        db.execSQL("create table if not exists food(Id integer primary key autoincrement,name VARCHAR,image BLOB )");
+        db.execSQL("create table if not exists food(Id integer primary key autoincrement,image BLOB,option1 VARCHAR,option2 VARCHAR,option3 VARCHAR,option4 VARCHAR,answer VARCHAR)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     }
 
-    public void insertData(String name, byte[] img) {
+    public void insertData(byte[] col1, String col2, String col3, String col4, String col5, String col6) {
         SQLiteDatabase db = getWritableDatabase();
-        String sql = "insert into food values(NULL,?,?)";
+        String sql = "insert into food values(Null,?,?,?,?,?,?)";
 
         SQLiteStatement statement = db.compileStatement(sql);
         statement.clearBindings();
 
-        statement.bindString(1, name);
-        statement.bindBlob(2, img);
+        statement.bindBlob(1, col1);
+        statement.bindString(2, col2);
+        statement.bindString(3, col3);
+        statement.bindString(4, col4);
+        statement.bindString(5, col5);
+        statement.bindString(6, col6);
 
         statement.executeInsert();
     }
-
 }
